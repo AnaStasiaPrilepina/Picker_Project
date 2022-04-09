@@ -18,7 +18,7 @@ namespace Picker_Project
         Image img;
         Label label;
         StackLayout st;
-        WebView webView;
+        //WebView webView;
         //Entry entry;
         public maakonnad()
         {
@@ -37,8 +37,6 @@ namespace Picker_Project
             };
             pick_city.ItemsSource = city;
             pick_city.SelectedIndexChanged += Pick_selectedIndexChanged;
-
-            webView = new WebView { };
 
             img = new Image { Source = "maakonnad.jpg" };
             label = new Label { Text = "Maakonnad ja linnad", FontSize = 30 };
