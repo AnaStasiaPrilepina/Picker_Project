@@ -131,7 +131,6 @@ namespace Picker_Project
 
         private void Pick_selectedIndexChanged(object sender, EventArgs e)
         {
-            var picker = (Picker)sender;
             if(sender == pick_maa)
             {
                 pick_city.SelectedIndex = pick_maa.SelectedIndex;
