@@ -19,7 +19,9 @@ namespace Picker_Project
                 Text = "Maakonnad",
                 BackgroundColor = Color.BurlyWood,
                 CornerRadius = 50,
-                FontSize = 20
+                FontSize = 20,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
             };
             maa.Clicked += Button_Clicked;
             imgMaa = new Image { Source = "maakonnad.png" };
@@ -28,7 +30,9 @@ namespace Picker_Project
                 Text = "Horoskoop",
                 BackgroundColor = Color.LightBlue,
                 CornerRadius = 50,
-                FontSize = 20
+                FontSize = 20,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
             };
             horo.Clicked += Button_Clicked;
             imgHoro = new Image { Source = "circle.png" };
@@ -37,7 +41,9 @@ namespace Picker_Project
                 Text = "Ajaplaan",
                 BackgroundColor = Color.LightGreen,
                 CornerRadius = 50,
-                FontSize = 20
+                FontSize = 20,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
             };
             plaan.Clicked += Button_Clicked;
             imgPlaan = new Image { Source = "clock.jpg" };
@@ -67,12 +73,10 @@ namespace Picker_Project
             else if (sender == horo)
             {
                 await Navigation.PushAsync(new horoskop());
-
             }
             else if (sender == plaan)
             {
                 await Navigation.PushAsync(new ajaplaan());
-
             }
         }
     }

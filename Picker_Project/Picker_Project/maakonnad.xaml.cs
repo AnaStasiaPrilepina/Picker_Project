@@ -17,9 +17,9 @@ namespace Picker_Project
         Picker pick_maa, pick_city;
         Image img;
         Label label;
-        StackLayout st;
+        //StackLayout st;
         //WebView webView;
-        //Entry entry;
+        Entry entry;
         public maakonnad()
         {
             pick_maa = new Picker
@@ -38,16 +38,42 @@ namespace Picker_Project
             pick_city.ItemsSource = city;
             pick_city.SelectedIndexChanged += Pick_selectedIndexChanged;
 
-            img = new Image { Source = "maakonnad.jpg" };
-            label = new Label { Text = "Maakonnad ja linnad", FontSize = 30 };
+            entry = new Entry
+            {
+                Placeholder = "Vvedi uezd (maakond)"
+            };
+            entry.Completed += Entry_Completed;
 
-            Grid grid = new Grid
-            { RowDefinitions = { new RowDefinition() }, ColumnDefinitions = { new ColumnDefinition(), new ColumnDefinition() } };
-            grid.Children.Add(pick_maa, 0, 0);
-            grid.Children.Add(pick_city, 1, 0);
+            img = new Image { Source = "maakonnad.jpg"};
+            label = new Label { Text = "Maakonnad ja linnad", FontSize = 20 };
 
-            st = new StackLayout { Children = { grid, label, img }, HorizontalOptions = LayoutOptions.CenterAndExpand, VerticalOptions = LayoutOptions.Start };
-            Content = st;
+            AbsoluteLayout abs = new AbsoluteLayout
+            { Children = { pick_maa, pick_city, img, label/*, entry*/ } };
+            AbsoluteLayout.SetLayoutBounds(pick_maa, new Rectangle(0.1, 0, 150, 50));
+            AbsoluteLayout.SetLayoutFlags(pick_maa, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(pick_city, new Rectangle(0.8, 0, 150, 50));
+            AbsoluteLayout.SetLayoutFlags(pick_city, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(label, new Rectangle(0.2, 0.35, 300, 50));
+            AbsoluteLayout.SetLayoutFlags(label, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(img, new Rectangle(0.5, 0.1, 150, 150));
+            AbsoluteLayout.SetLayoutFlags(img, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(entry, new Rectangle(0.2, 0.4, 300, 50));
+            AbsoluteLayout.SetLayoutFlags(entry, AbsoluteLayoutFlags.PositionProportional);
+
+            Content = abs;
+
+            //Grid grid = new Grid
+            //{ RowDefinitions = { new RowDefinition() }, ColumnDefinitions = { new ColumnDefinition(), new ColumnDefinition() } };
+            //grid.Children.Add(pick_maa, 0, 0);
+            //grid.Children.Add(pick_city, 1, 0);
+
+            //st = new StackLayout { Children = { grid, label, img }, HorizontalOptions = LayoutOptions.CenterAndExpand, VerticalOptions = LayoutOptions.Start };
+            //Content = st;
+        }
+
+        private void Entry_Completed(object sender, EventArgs e)
+        {
+            //Entry используем для поиска информации о уезде и отображения картики, если выбираем вариант "да" в окне PopUp
         }
 
         public void Info_Check()
