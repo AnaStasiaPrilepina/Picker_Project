@@ -46,7 +46,7 @@ namespace Picker_Project
                 VerticalOptions = LayoutOptions.Center
             };
             plaan.Clicked += Button_Clicked;
-            imgPlaan = new Image { Source = "clock.jpg" };
+            imgPlaan = new Image { Source = "clock.png" };
 
             Grid grid = new Grid
             {
@@ -54,12 +54,11 @@ namespace Picker_Project
                 ColumnDefinitions = { new ColumnDefinition(), new ColumnDefinition() },
             };
             grid.Children.Add(maa, 0, 0);
-            //grid.Children.Add(horo, 0, 1);
-            grid.Children.Add(imgHoro, 0, 1);
+            grid.Children.Add(horo, 0, 1);
             grid.Children.Add(plaan, 0, 2);
+
             grid.Children.Add(imgMaa, 1, 0);
-            //grid.Children.Add(imgHoro, 1, 1);
-            grid.Children.Add(horo,1, 1);
+            grid.Children.Add(imgHoro, 1, 1);
             grid.Children.Add(imgPlaan, 1, 2);
             Content = grid;
         }

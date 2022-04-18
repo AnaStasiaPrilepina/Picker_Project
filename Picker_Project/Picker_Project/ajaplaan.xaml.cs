@@ -23,6 +23,10 @@ namespace Picker_Project
             tp.PropertyChanged += Tp_PropertyChanged;
             title = new Label { Text = "Распорядок дня", FontSize = 30, HorizontalOptions = LayoutOptions.CenterAndExpand, VerticalOptions = LayoutOptions.CenterAndExpand};
             img = new Image { Source = "clock.png" };
+            TapGestureRecognizer tap = new TapGestureRecognizer();
+            tap.Tapped += Tap_Tapped;
+            img.GestureRecognizers.Add(tap);
+
             lbl = new Label { Text = "" };
             label = new Label { Text = "" };
 
@@ -38,11 +42,16 @@ namespace Picker_Project
                 ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = new GridLength(1,GridUnitType.Star) }
-                }
+                },
             };
             grid.Children.Add(st, 0, 0);
             grid.Children.Add(img, 0, 1);
             Content = grid;
+        }
+
+        private async void Tap_Tapped(object sender, EventArgs e)
+        {
+            await DisplayAlert("Дополнительно:", "Кликая на картинку отображается диалоговое окно...", "Ok");
         }
 
         private void Tp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

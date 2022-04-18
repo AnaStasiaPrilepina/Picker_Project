@@ -44,7 +44,7 @@ namespace Picker_Project
             };
             entry.Completed += Entry_Completed;
 
-            img = new Image { Source = "maakonnad.jpg"};
+            img = new Image { Source = "maakonnad.jpg" };
             label = new Label { Text = "Maakonnad ja linnad", FontSize = 20 };
 
             AbsoluteLayout abs = new AbsoluteLayout

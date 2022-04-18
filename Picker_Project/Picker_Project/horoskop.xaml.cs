@@ -14,9 +14,9 @@ namespace Picker_Project
     {
         DatePicker dp;
         Image img;
-        Entry ent;
         Label lbl, sign;
         StackLayout st;
+        Entry ent;
         public horoskop()
         {
             dp = new DatePicker
@@ -30,20 +30,18 @@ namespace Picker_Project
                 Placeholder = "Vvedi znak zodiaka"
             };
             ent.Completed += Ent_Completed;
-            img = new Image
-            {
-                Source = "circle.png"
-            };
+            img = new Image { Source = "circle.png" };
             lbl = new Label
             {
                 Text = "Opisanie", FontSize = 20
             };
             sign = new Label { Text = "", FontSize = 25, FontAttributes = FontAttributes.Bold};
-            
-            st = new StackLayout { Children = { dp, /*ent,*/ img} };
+
+
+            st = new StackLayout { Children = { dp, img/*, ent*/} };
             Content = st;
         }
-        
+
         private void Ent_Completed(object sender, EventArgs e)
         {
             //Если вводим название знака в Entry/Editor, то меняются картинки и описание
