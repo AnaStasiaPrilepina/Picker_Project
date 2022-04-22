@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace Picker_Project
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    
     public partial class Maakonnad_leht : ContentPage
     {
         ViewCell pickerid, kirjeldus;
@@ -19,24 +20,24 @@ namespace Picker_Project
         EntryCell ent;
         //Image img;
         Label label;
-        TableSection fotosection;
+        //TableSection fotosection;
         TableView tableView;
-        List<string> maa = new List<string> 
+        string[] maa = new string [15]
         {
             "Harjumaa", "Lääne-Virumaa", "Ida-Virumaa", "Hiiuma", "Läänemaa", "Raplamaa", "Järvamaa", "Jõgevamaa", "Saaremaa", 
             "Pärnumaa", "Viljandimaa", "Tartumaa", "Põlvamaa", "Valgamaa", "Võrumaa"
         };
-        List<string> city = new List<string> 
+        string[] linn = new string[15]
         {
             "Tallinn", "Rakvere", "Jõhvi", "Kärdla", "Haapsalu", "Rapla", "Paide", "Jõgeva", "Kuressaare", 
             "Pärnu", "Viljandi", "Tartu", "Põlva", "Valga", "Võru"
         };
-        List<string> pildid = new List<string>
+        string[] foto = new string[15]
         {
             "harju.png", "laaneviru.png","idaviru.png","hiiu.png","laane.png", "rapla.png","jarva.png", "jogev.png","saare.png",
             "parnu.png","viljandi.png","tartu.png","polva.png","valga.png","voru.png"
         };
-        List<string> opisanie = new List<string>
+        string[] opisanie = new string[15]
         {
             "Tallinn, Harjumaa, Põhja-Eesti", "Rakvere, Lääne-Virumaa, Kesk-Eesti", "Jõhvi, Ida-Virumaa, Kirde-Eesti", "Kärdla, Hiiuma, Lääne-Eesti", "Haapsalu, Läänemaa, Lääne-Eesti",
             "Rapla, Raplamaa, Kesk-Eesti", "Paide, Järvamaa, Kesk-Eesti", "Jõgeva, Jõgevamaa, Lõuna-Eesti", "Kuressaare, Saaremaa, Lääne-Eesti", "Pärnu, Pärnumaa, Lääne-Eesti", 
@@ -49,29 +50,25 @@ namespace Picker_Project
             {
                 Title = "Maakonnad"
             };
+            pick_maa.ItemsSource = maa;
+            pick_maa.SelectedIndexChanged += Pick_selectedIndexChanged;
+
             pick_city = new Picker
             {
-                Title = "Linnad"
+                Title = "Linnad",
             };
-            pick_maa.ItemsSource = maa;
-            pick_city.ItemsSource = city;
-            pick_maa.SelectedIndexChanged += Pick_selectedIndexChanged;
+            pick_city.ItemsSource = linn;
             pick_city.SelectedIndexChanged += Pick_selectedIndexChanged;
+
             stack = new StackLayout
             {
                 Children = { pick_maa, pick_city },
                 Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.StartAndExpand
-
+                HorizontalOptions = LayoutOptions.CenterAndExpand
             };
+
             pickerid = new ViewCell();
             pickerid.View = stack;
-
-            fotosection = new TableSection();
-            ic = new ImageCell
-            {
-                ImageSource = ImageSource.FromFile(pildid[pick_maa.SelectedIndex]),
-            };
 
             ent = new EntryCell
             {
@@ -79,7 +76,7 @@ namespace Picker_Project
                 Placeholder = "sisesta maakond",
                 Keyboard = Keyboard.Default
             };
-            ent.Completed += Ent_Completed;
+            //ent.Completed += Ent_Completed;
 
             label = new Label
             {
@@ -90,19 +87,16 @@ namespace Picker_Project
             {
                 Children = { label },
                 HorizontalOptions = LayoutOptions.CenterAndExpand
-
-            };
-
-            ic = new ImageCell
-            {
-                ImageSource = "maakonnad.png",
             };
 
             kirjeldus = new ViewCell();
             kirjeldus.View = st;
 
+            ic = new ImageCell();
+
             tableView = new TableView
             {
+                RowHeight = 60,
                 Intent = TableIntent.Form,
                 Root = new TableRoot("Maakonnad")
                 {
@@ -113,9 +107,8 @@ namespace Picker_Project
                     new TableSection("Sisesta maakond ise:")
                     {
                         ent,
-                        //ic
+                        ic
                     },
-                    fotosection,
                     new TableSection("Maakonnad ja linnad")
                     {
                         kirjeldus
@@ -132,43 +125,20 @@ namespace Picker_Project
                 pick_city.SelectedIndex = pick_maa.SelectedIndex;
                 ic = new ImageCell
                 {
-                    ImageSource = ImageSource.FromFile(pildid[pick_maa.SelectedIndex])
+                    ImageSource = ImageSource.FromFile(foto[pick_maa.SelectedIndex])
                 };
                 label.Text = opisanie[pick_maa.SelectedIndex];
             }
             else if (sender == pick_city)
             {
                 pick_maa.SelectedIndex = pick_city.SelectedIndex;
-                ic = new ImageCell
-                {
-                    ImageSource = ImageSource.FromFile(pildid[pick_maa.SelectedIndex])
-                };
-                label.Text = opisanie[pick_maa.SelectedIndex];
+                //ic = new ImageCell
+                //{
+                //    ImageSource = ImageSource.FromFile(foto[pick_city.SelectedIndex])
+                //};
+                //label.Text = opisanie[pick_city.SelectedIndex];
             }
         }
-        private async void Ent_Completed(object sender, EventArgs e)
-        {
-            bool result = await DisplayAlert("Pop-up", "Kas soovid maakonna otsida?", "Yah", "Ei");
-            if (result)
-            {
-                if (ent.Text != null)
-                {
-                    fotosection.Remove(ic);
-                    ic = new ImageCell
-                    {
-                        ImageSource = ImageSource.FromFile(pildid[pick_maa.SelectedIndex])
-                    };
-                    label.Text = opisanie[pick_maa.SelectedIndex];
-                    fotosection.Add(ic);
-                }
-                else
-                {
-                    await DisplayAlert("Error", "Maakonda pole listis", "OK");
-                    ent.Text = "";
-                }
-            }
-            else
-                ent.Text = "";
-        }
+        
     }
 }

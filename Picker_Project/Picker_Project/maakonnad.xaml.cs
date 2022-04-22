@@ -21,7 +21,6 @@ namespace Picker_Project
         Label label;
         AbsoluteLayout abs;
         //StackLayout st;
-        WebView webView;
         Entry entry;
         public maakonnad()
         {
@@ -43,24 +42,25 @@ namespace Picker_Project
 
             entry = new Entry
             {
-                Placeholder = "Vvedi uezd (maakond)"
+                Placeholder = "Vvedi uezd (Maakond)",
+                Text = ""
             };
             entry.Completed += Entry_Completed;
 
             img = new Image { Source = "maakonnad.jpg" };
-            label = new Label { Text = "Maakonnad ja linnad", FontSize = 20 };
+            label = new Label { Text = "Maakonnad ja linnad", FontSize = 15 };
 
             abs = new AbsoluteLayout
-            { Children = { pick_maa, pick_city, img, label/*, entry*/ } };
+            { Children = { pick_maa, pick_city, img, label, entry } };
             AbsoluteLayout.SetLayoutBounds(pick_maa, new Rectangle(0.1, 0, 150, 50));
             AbsoluteLayout.SetLayoutFlags(pick_maa, AbsoluteLayoutFlags.PositionProportional);
             AbsoluteLayout.SetLayoutBounds(pick_city, new Rectangle(0.8, 0, 150, 50));
             AbsoluteLayout.SetLayoutFlags(pick_city, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(label, new Rectangle(0.2, 0.35, 300, 50));
+            AbsoluteLayout.SetLayoutBounds(label, new Rectangle(0.2, 0.2, 300, 50));
             AbsoluteLayout.SetLayoutFlags(label, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(img, new Rectangle(0.5, 0.1, 150, 150));
+            AbsoluteLayout.SetLayoutBounds(img, new Rectangle(0.5, 0.4, 150, 150));
             AbsoluteLayout.SetLayoutFlags(img, AbsoluteLayoutFlags.PositionProportional);
-            AbsoluteLayout.SetLayoutBounds(entry, new Rectangle(0.2, 0.4, 300, 50));
+            AbsoluteLayout.SetLayoutBounds(entry, new Rectangle(0.1, 0.1, 300, 50));
             AbsoluteLayout.SetLayoutFlags(entry, AbsoluteLayoutFlags.PositionProportional);
 
             Content = abs;
@@ -74,19 +74,23 @@ namespace Picker_Project
             //Content = st;
         }
 
-        private void Entry_Completed(object sender, EventArgs e)
+        private async void Entry_Completed(object sender, EventArgs e)
         {
             //Entry используем для поиска информации о уезде и отображения картики, если выбираем вариант "да" в окне PopUp
-            if (webView != null)
+            bool result = await DisplayAlert("PopUp:", "Kas soovid maakonna otsida?", "Jah", "Ei");
+            if (result)
             {
-                abs.Children.Remove(webView);
+                bool IsExist = maa.Contains(entry.Text);
+                if (IsExist == true)
+                {
+                    entry.Text = maa[pick_maa.SelectedIndex];
+                    Info_Check();
+                }
+                else
+                {
+                    await DisplayAlert("Error:", "Midagi oli valesti", "Proovi uuesti");
+                }
             }
-            webView = new WebView
-            {
-                Source = new UrlWebViewSource { Url = "https://www.google.com" },
-                VerticalOptions = LayoutOptions.FillAndExpand,
-            };
-            abs.Children.Add(webView);
         }
 
         public void Info_Check()
