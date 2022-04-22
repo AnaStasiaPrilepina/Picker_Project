@@ -17,6 +17,7 @@ namespace Picker_Project
         Label lbl, sign;
         StackLayout st;
         Entry ent;
+        WebView webView;
         public horoskop()
         {
             dp = new DatePicker
@@ -25,11 +26,7 @@ namespace Picker_Project
                 Date  = DateTime.Now
             };
             dp.DateSelected += Dp_DateSelected;
-            ent = new Entry
-            {
-                Placeholder = "Vvedi znak zodiaka"
-            };
-            ent.Completed += Ent_Completed;
+            
             img = new Image { Source = "circle.png" };
             lbl = new Label
             {
@@ -37,15 +34,26 @@ namespace Picker_Project
             };
             sign = new Label { Text = "", FontSize = 25, FontAttributes = FontAttributes.Bold};
 
+            ent = new Entry
+            {
+                Placeholder = "Vvedi znak zodiaka (rus)",
+                Text = ""
+            };
+            ent.Completed += Ent_Completed;
 
-            st = new StackLayout { Children = { dp, img/*, ent*/} };
+
+            st = new StackLayout { Children = { dp, img, ent } };
             Content = st;
         }
 
         private void Ent_Completed(object sender, EventArgs e)
         {
+            
             //Если вводим название знака в Entry/Editor, то меняются картинки и описание
-            ;
+            if (ent.Text == sign.Text)
+            {
+                
+            };
         }
 
         private void Dp_DateSelected(object sender, DateChangedEventArgs e)

@@ -12,13 +12,16 @@ namespace Picker_Project
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class maakonnad : ContentPage
     {
-        List<string> city = new List<string> { "Tallinn", "Rakvere", "Jõhvi", "Kärdla", "Haapsalu", "Rapla", "Paide", "Jõgeva", "Kuressaare", "Pärnu", "Viljandi", "Tartu", "Põlva", "Valga", "Võru" };
-        List<string> maa = new List<string> { "Harjumaa", "Lääne-Virumaa", "Ida-Virumaa", "Hiiuma", "Läänemaa", "Raplamaa", "Järvamaa", "Jõgevamaa", "Saaremaa", "Pärnumaa", "Viljandimaa", "Tartumaa", "Põlvamaa", "Valgamaa", "Võrumaa" };
+        List<string> city = new List<string> 
+        { "Tallinn", "Rakvere", "Jõhvi", "Kärdla", "Haapsalu", "Rapla", "Paide", "Jõgeva", "Kuressaare", "Pärnu", "Viljandi", "Tartu", "Põlva", "Valga", "Võru" };
+        List<string> maa = new List<string> 
+        { "Harjumaa", "Lääne-Virumaa", "Ida-Virumaa", "Hiiuma", "Läänemaa", "Raplamaa", "Järvamaa", "Jõgevamaa", "Saaremaa", "Pärnumaa", "Viljandimaa", "Tartumaa", "Põlvamaa", "Valgamaa", "Võrumaa" };
         Picker pick_maa, pick_city;
         Image img;
         Label label;
+        AbsoluteLayout abs;
         //StackLayout st;
-        //WebView webView;
+        WebView webView;
         Entry entry;
         public maakonnad()
         {
@@ -47,7 +50,7 @@ namespace Picker_Project
             img = new Image { Source = "maakonnad.jpg" };
             label = new Label { Text = "Maakonnad ja linnad", FontSize = 20 };
 
-            AbsoluteLayout abs = new AbsoluteLayout
+            abs = new AbsoluteLayout
             { Children = { pick_maa, pick_city, img, label/*, entry*/ } };
             AbsoluteLayout.SetLayoutBounds(pick_maa, new Rectangle(0.1, 0, 150, 50));
             AbsoluteLayout.SetLayoutFlags(pick_maa, AbsoluteLayoutFlags.PositionProportional);
@@ -74,6 +77,16 @@ namespace Picker_Project
         private void Entry_Completed(object sender, EventArgs e)
         {
             //Entry используем для поиска информации о уезде и отображения картики, если выбираем вариант "да" в окне PopUp
+            if (webView != null)
+            {
+                abs.Children.Remove(webView);
+            }
+            webView = new WebView
+            {
+                Source = new UrlWebViewSource { Url = "https://www.google.com" },
+                VerticalOptions = LayoutOptions.FillAndExpand,
+            };
+            abs.Children.Add(webView);
         }
 
         public void Info_Check()
