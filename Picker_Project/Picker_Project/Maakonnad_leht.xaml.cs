@@ -76,7 +76,7 @@ namespace Picker_Project
                 Placeholder = "sisesta maakond",
                 Keyboard = Keyboard.Default
             };
-            //ent.Completed += Ent_Completed;
+            ent.Completed += Ent_Completed;
 
             label = new Label
             {
@@ -116,6 +116,11 @@ namespace Picker_Project
                 }
             };
             Content = tableView;
+        }
+
+        private void Ent_Completed(object sender, EventArgs e)
+        {
+
         }
 
         private void Pick_selectedIndexChanged(object sender, EventArgs e)

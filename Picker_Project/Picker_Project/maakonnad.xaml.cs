@@ -15,7 +15,8 @@ namespace Picker_Project
         List<string> city = new List<string> 
         { "Tallinn", "Rakvere", "Jõhvi", "Kärdla", "Haapsalu", "Rapla", "Paide", "Jõgeva", "Kuressaare", "Pärnu", "Viljandi", "Tartu", "Põlva", "Valga", "Võru" };
         List<string> maa = new List<string> 
-        { "Harjumaa", "Lääne-Virumaa", "Ida-Virumaa", "Hiiuma", "Läänemaa", "Raplamaa", "Järvamaa", "Jõgevamaa", "Saaremaa", "Pärnumaa", "Viljandimaa", "Tartumaa", "Põlvamaa", "Valgamaa", "Võrumaa" };
+        { "Harjumaa", "Lääne-Virumaa", "Ida-Virumaa", "Hiiuma", "Läänemaa", "Raplamaa", "Järvamaa", "Jõgevamaa", "Saaremaa", 
+            "Pärnumaa", "Viljandimaa", "Tartumaa", "Põlvamaa", "Valgamaa", "Võrumaa" };
         Picker pick_maa, pick_city;
         Image img;
         Label label;
@@ -77,13 +78,16 @@ namespace Picker_Project
         private async void Entry_Completed(object sender, EventArgs e)
         {
             //Entry используем для поиска информации о уезде и отображения картики, если выбираем вариант "да" в окне PopUp
-            bool result = await DisplayAlert("PopUp:", "Kas soovid maakonna otsida?", "Jah", "Ei");
+            bool result = await DisplayAlert("PopUp:", "Kas soovid maakonna infot otsida?", "Jah", "Ei");
             if (result)
             {
-                bool IsExist = maa.Contains(entry.Text);
+                //bool IsExist = maa.Contains(entry.Text);
+                bool IsExist = string.Equals(maa.ElementAtOrDefault(0), entry.Text, StringComparison.InvariantCultureIgnoreCase);
                 if (IsExist == true)
                 {
-                    entry.Text = maa[pick_maa.SelectedIndex];
+                    await DisplayAlert("Info:", "Pole midagi?", "Proovi uuesti");
+                    //надо поменять на лист
+                    img.Source = "clock.png";
                     Info_Check();
                 }
                 else
