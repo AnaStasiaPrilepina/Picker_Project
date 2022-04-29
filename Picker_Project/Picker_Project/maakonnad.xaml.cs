@@ -17,6 +17,10 @@ namespace Picker_Project
         List<string> maa = new List<string> 
         { "Harjumaa", "Lääne-Virumaa", "Ida-Virumaa", "Hiiuma", "Läänemaa", "Raplamaa", "Järvamaa", "Jõgevamaa", "Saaremaa", 
             "Pärnumaa", "Viljandimaa", "Tartumaa", "Põlvamaa", "Valgamaa", "Võrumaa" };
+        List<string> picture = new List<string>
+        { "harju.png", "laaneviru.png", "idaviru.png", "hiiu.png", "laane.png", "rapla.png", "jarva.png", "jogev.png", "saare.png", 
+            "parnu.png", "viljandi.png", "tartu.png", "polva.png", "valga.png", "voru.png"};
+
         Picker pick_maa, pick_city;
         Image img;
         Label label;
@@ -85,9 +89,9 @@ namespace Picker_Project
                 bool IsExist = string.Equals(maa.ElementAtOrDefault(0), entry.Text, StringComparison.InvariantCultureIgnoreCase);
                 if (IsExist == true)
                 {
-                    await DisplayAlert("Info:", "Pole midagi?", "Proovi uuesti");
+                    await DisplayAlert("Info:", "Pole midagi? Kontrolli koodi.", "OK");
                     //надо поменять на лист
-                    img.Source = "clock.png";
+                    img.Source = "load.png";
                     Info_Check();
                 }
                 else
