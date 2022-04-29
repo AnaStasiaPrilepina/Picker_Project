@@ -68,7 +68,6 @@ namespace Picker_Project
             if (sender == maa)
             {
                 await Navigation.PushAsync(new maakonnad());
-                //await Navigation.PushAsync(new Maakonnad_leht());
             }
             else if (sender == horo)
             {
